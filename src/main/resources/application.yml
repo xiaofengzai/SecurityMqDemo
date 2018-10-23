@@ -1,0 +1,33 @@
+server:
+  port: 9898
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/mydb
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: com.enshub.config.MysqlDialetWithoutFk
+    open-in-view: false
+
+
+  thymeleaf:
+      mode: HTML5
+      encoding: utf-8
+      servlet:
+        content-type: text/html
+      prefix: classpath:/templates/
+      suffix: .html
+  kafka:
+      bootstrap-servers: localhost:9092
+      consumer:
+        group-id: defaultGroup
+        key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      producer:
+        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        value-serializer: org.apache.kafka.common.serialization.StringSerializer
+        batch-size: 65536
+        buffer-memory: 524288

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/rabbit
+         http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
+    <!--<jms:annotation-driven/>-->
+    <rabbit:connection-factory id="rabbitConnectionFactory"
+            host="127.0.0.1"
+            password="guest"
+            username="guest"
+            port="5672"
+    />
+    <rabbit:admin connection-factory="rabbitConnectionFactory"
+
+    />
+    <rabbit:queue id="queue1" name="queue1"/>
+    <rabbit:queue id="queue2" name="queue2"/>
+    <rabbit:queue id="queue3" name="queue3"/>
+
+    <rabbit:direct-exchange id="myExchange" name="myExchange" durable="true" auto-delete="false" >
+        <!-- 可以绑定多个消息队列 -->
+        <rabbit:bindings>
+            <rabbit:binding queue="queue1" key="queue1"/>
+            <rabbit:binding queue="queue2" key="queue2"/>
+            <rabbit:binding queue="queue3" key="queue3"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+    <rabbit:template id="amqpTemplate"  connection-factory="rabbitConnectionFactory" />
+
+    <!-- 定义监听器 -->
+    <!--<rabbit:listener-container connection-factory="mqConnectionFactory" acknowledge="auto">-->
+        <!--<rabbit:listener queues="queue1" ref="queueListenter"/>-->
+    <!--</rabbit:listener-container>-->
+
+    <!--&lt;!&ndash; 定义监听队列的处理类 &ndash;&gt;-->
+    <!--<bean id="queueListenter" class="com.bluedon.useradmin.datainteraction.mq.QueueListener" />-->
+
+
+
+</beans>
