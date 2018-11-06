@@ -17,6 +17,7 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.jms.*;
+import java.io.IOException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 
@@ -31,12 +32,13 @@ public class ActiveMqDemo
     @Autowired
     private AlertService alterService;
     @Test
-    public void TestListner(){
+    public void TestListner() throws IOException {
         ApplicationContext applicationContext=new ClassPathXmlApplicationContext("activemq.xml");
         JmsTemplate jmsTemplate= (JmsTemplate) applicationContext.getBean("jmsTemplate");
         AlterServiceImpl service=new AlterServiceImpl();
         service.setJmsOperations(jmsTemplate);
         service.send("testQueue",new User("ee","d"));
+        System.in.read();
     }
 
     //@Test

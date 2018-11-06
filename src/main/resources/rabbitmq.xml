@@ -29,7 +29,7 @@
         </rabbit:bindings>
     </rabbit:direct-exchange>
 
-    <rabbit:template id="amqpTemplate"  connection-factory="rabbitConnectionFactory" />
+    <rabbit:template id="amqpTemplate"  connection-factory="rabbitConnectionFactory" channel-transacted="true" />
 
     <!-- 定义监听器 -->
     <!--<rabbit:listener-container connection-factory="mqConnectionFactory" acknowledge="auto">-->

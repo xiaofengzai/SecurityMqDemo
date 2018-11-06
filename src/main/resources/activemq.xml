@@ -28,6 +28,7 @@
             <property name="connectionFactory" ref="amqCoonectionFactory" />
             <property name="destinationName" value="testQueue" />
             <property name="messageListener" ref="handler" />
+        <property name="sessionTransacted" value="true"/>
     </bean>
 
 
